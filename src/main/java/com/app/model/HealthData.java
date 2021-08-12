@@ -6,19 +6,19 @@ public class HealthData {
     private String genericName;
     private String coverageType;
     private String totalSpending;
-    private String sno;
+    private String serialId;
 
     public HealthData() {
 
     }
 
-    public HealthData(String year, String brandName, String genericName, String coverageType, String totalSpending, String sno) {
+    public HealthData(String year, String brandName, String genericName, String coverageType, String totalSpending, String serialId) {
         this.year = year;
         this.brandName = brandName;
         this.genericName = genericName;
         this.coverageType = coverageType;
         this.totalSpending = totalSpending;
-        this.sno = sno;
+        this.serialId = serialId;
     }
     public String getBrandName() {
         return brandName;
@@ -35,13 +35,13 @@ public class HealthData {
     public String getTotalSpending(){
         return totalSpending;
     }
-    public String getSno(){
-        return sno;
+    public String getserialId(){
+        return serialId;
     }
 
     @Override
     public String toString(){
-        return this.year+" "+this.brandName+" "+this.genericName+" "+this.totalSpending+" "+this.sno+"\n";
+        return this.year+" "+this.brandName+" "+this.genericName+" "+this.totalSpending+" "+this.serialId+"\n";
     }
 
 }

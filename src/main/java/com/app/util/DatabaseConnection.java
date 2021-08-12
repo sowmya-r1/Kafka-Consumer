@@ -23,7 +23,6 @@ public class DatabaseConnection {
             Properties p=new Properties();
             p.load(reader);
 
-            // Database credentials
             String USER = p.getProperty("user");
             String PASS = p.getProperty("password");
 
@@ -31,7 +30,6 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connection successful.");
         }catch(Exception e) {
-            //Handle errors for Class.forName
             e.printStackTrace();
         }
     }

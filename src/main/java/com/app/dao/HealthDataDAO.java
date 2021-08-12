@@ -1,8 +1,7 @@
 package com.app.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+
 import com.app.model.HealthData;
 import com.app.util.DatabaseConnection;
 
@@ -19,32 +18,40 @@ public class HealthDataDAO {
         }
     }
 
-    public static void addRecords(HealthData record){
+    public static void addRecords(HealthData record) {
 
         String year = record.getYear();
         String brandName = record.getBrandName();
         String genericName = record.getGenericName();
         String coverageType = record.getCoverageType();
         Double totalSpending = Double.parseDouble(record.getTotalSpending());
-        int sno = Integer.parseInt(record.getSno());
+        int serialId = Integer.parseInt(record.getserialId());
+        ResultSet rs;
 
-        System.out.println(year+" "+brandName+" "+genericName+" "+coverageType+" "+totalSpending+" "+sno);
+
+
 
         try {
+            Statement statement = connection.createStatement();
+            PreparedStatement stmt=connection.prepareStatement("Insert into healthdb values(default,?,?,?,?,?,?)");
 
-            PreparedStatement stmt=connection.prepareStatement("Insert into health_data values(?,?,?,?,?,?)");
-
-            stmt.setInt(1,sno);
+            stmt.setInt(1,serialId);
             stmt.setString(2,year);
             stmt.setString(3,brandName);
             stmt.setString(4,genericName);
             stmt.setString(5,coverageType);
             stmt.setDouble(6,totalSpending);
 
-            int result = stmt.executeUpdate();
-            if(result == 1){
-                System.out.println("Insertion successful.");
+            String sql = "SELECT serial_id from healthdb WHERE serial_id ="+serialId;
+
+            rs = statement.executeQuery(sql);
+
+            if(rs.next() == false) {
+                int result = stmt.executeUpdate();
+            } else {
+                System.out.println("Ignoring duplicate record, serial_id ="+serialId+"\n");
             }
+
 
         }catch(SQLException se) {
             se.printStackTrace();
